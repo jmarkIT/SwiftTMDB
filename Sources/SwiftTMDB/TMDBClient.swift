@@ -10,7 +10,7 @@ import Foundation
 public class TMDBClient {
     private let session: URLSession
 
-    init(session: URLSession = .shared) {
+    public init(session: URLSession = .shared) {
         self.session = session
     }
 
