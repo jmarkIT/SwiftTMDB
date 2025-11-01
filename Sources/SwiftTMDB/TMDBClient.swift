@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class TMDBClient {
+public actor TMDBClient {
     private let session: URLSession
 
     public init(session: URLSession = .shared) {
