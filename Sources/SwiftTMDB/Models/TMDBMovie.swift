@@ -33,7 +33,7 @@ public struct Credit: Codable {
     public let popularity: Double
     public let profilePath: String?
     public let castId: Int?
-    public let character: String
+    public let character: String?
     public let creditId: String
     public let order: Int?
     public let department: String?
