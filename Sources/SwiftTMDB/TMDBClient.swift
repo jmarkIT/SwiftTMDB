@@ -17,11 +17,19 @@ public actor TMDBClient {
     private func makeRequest(
         endpoint: String,
         method: String = "GET",
+        queryItems: [URLQueryItem]? = nil,
         body: Data? = nil
     ) -> URLRequest {
-        var request = URLRequest(
-            url: TMDBConfig.apiBaseURL.appending(path: endpoint)
-        )
+        let baseURL = TMDBConfig.apiBaseURL.appending(path: endpoint)
+        var components = URLComponents(
+            url: baseURL,
+            resolvingAgainstBaseURL: false
+        )!
+        components.queryItems = queryItems?.isEmpty == false ? queryItems : nil
+        guard let url = components.url else {
+            fatalError("Invalid URL components for endpoint: \(endpoint)")
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = method
         request.httpBody = body
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -36,11 +44,13 @@ public actor TMDBClient {
     func perform<T: Decodable>(
         _ endpoint: String,
         method: String = "GET",
+        queryItems: [URLQueryItem]? = nil,
         body: Data? = nil
     ) async throws -> T {
         let request = makeRequest(
             endpoint: endpoint,
             method: method,
+            queryItems: queryItems,
             body: body
         )
         let (data, response) = try await session.data(for: request)
@@ -55,7 +65,21 @@ public actor TMDBClient {
 }
 
 extension TMDBClient {
-    public func getMovie(movieId: String) async throws -> TMDBMovie {
-        return try await perform("movie/\(movieId)")
+    public func getMovie(movieId: String, appendToResponse: [String]? = nil)
+        async throws -> TMDBMovie
+    {
+        return try await perform(
+            "movie/\(movieId)",
+            method: "GET",
+            queryItems: appendToResponse.map {
+                [
+                    URLQueryItem(
+                        name: "append_to_response",
+                        value: $0.joined(separator: ",")
+                    )
+                ]
+            },
+            body: nil,
+        )
     }
 }
