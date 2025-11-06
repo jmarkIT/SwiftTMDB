@@ -12,6 +12,7 @@ public struct TMDBMovie: Codable {
     public let revenue: Int
     public let genres: [Genre]
     public let credits: Credits?
+    public let runtime: Int
 }
 
 public struct Genre: Codable {
