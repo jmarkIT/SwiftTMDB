@@ -28,7 +28,7 @@ public struct Credit: Codable {
     public let adult: Bool
     public let gender: Int
     public let id: Int
-    public let knownForDepartment: String
+    public let knownForDepartment: String?
     public let name: String
     public let originalName: String
     public let popularity: Double
