@@ -59,3 +59,6 @@ public struct Credit: Codable {
     }
 }
 
+public struct GenresQuery: Codable {
+    public let genres: [Genre]
+}
