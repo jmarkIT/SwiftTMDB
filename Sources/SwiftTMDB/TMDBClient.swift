@@ -83,3 +83,14 @@ extension TMDBClient {
         )
     }
 }
+
+extension TMDBClient {
+    public func getGenres() async throws -> [Genre] {
+        return try await perform(
+            "genre/movie/list",
+            method: "GET",
+            queryItems: nil,
+            body: nil
+        )
+    }
+}
