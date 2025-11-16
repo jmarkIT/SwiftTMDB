@@ -5,7 +5,7 @@
 //  Created by James Mark on 10/11/25.
 //
 
-public struct TMDBMovie: Codable {
+public struct TMDBMovie: Codable, Sendable{
     public let id: Int
     public let title: String
     public let budget: Int
@@ -15,17 +15,17 @@ public struct TMDBMovie: Codable {
     public let runtime: Int
 }
 
-public struct Genre: Codable {
+public struct Genre: Codable, Sendable {
     public let id: Int
     public let name: String
 }
 
-public struct Credits: Codable {
+public struct Credits: Codable, Sendable {
     public let cast: [Credit]
     public let crew: [Credit]
 }
 
-public struct Credit: Codable {
+public struct Credit: Codable, Sendable {
     public let adult: Bool
     public let gender: Int
     public let id: Int
