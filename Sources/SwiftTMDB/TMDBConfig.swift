@@ -12,4 +12,8 @@ public struct TMDBConfig {
 //    static let authToken = ProcessInfo.processInfo.environment["TMDB_TOKEN"] ?? ""
     public var authToken: String
     
+    public init(authToken: String) {
+        self.authToken = authToken
+    }
+    
 }
