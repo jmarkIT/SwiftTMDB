@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct TMDBConfig {
+public struct TMDBConfig {
     static let apiBaseURL = URL(string: "https://api.themoviedb.org/3")!
-    static let authToken = ProcessInfo.processInfo.environment["TMDB_TOKEN"] ?? ""
+//    static let authToken = ProcessInfo.processInfo.environment["TMDB_TOKEN"] ?? ""
+    public var authToken: String
+    
 }

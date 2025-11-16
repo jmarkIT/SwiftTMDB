@@ -9,9 +9,11 @@ import Foundation
 
 public actor TMDBClient {
     private let session: URLSession
+    private let cfg: TMDBConfig
 
-    public init(session: URLSession = .shared) {
+    public init(session: URLSession = .shared, cfg: TMDBConfig) {
         self.session = session
+        self.cfg = cfg
     }
 
     private func makeRequest(
@@ -34,7 +36,7 @@ public actor TMDBClient {
         request.httpBody = body
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(
-            "Bearer \(TMDBConfig.authToken)",
+            "Bearer \(cfg.authToken)",
             forHTTPHeaderField: "Authorization"
         )
 
